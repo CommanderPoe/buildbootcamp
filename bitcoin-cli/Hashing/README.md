@@ -14,6 +14,9 @@ Hashlib is a common interface to many hash functions.
 
 ##### How to hash something?
 
+Check the `hashing.py` script for an explanation on how to check hash of files.
+
+
 > `$ msg= b'something'`
 `$ hashlib.sha256(msg)`
 `$ hashlib.sha256(msg).hexdigest()`
@@ -21,61 +24,18 @@ Hashlib is a common interface to many hash functions.
 Crate a message in bytes _b'_ then pass the method `.sha256(msg)` to the hashlib and finally pass another method to `.hexgdigest()` to get a hexadecimal number. For each one of a new message you will get a different fingerprint.
 <br>
 
-##### Hashing a file and comparing it to the org.
+##### Python scripts with hash
 
-> `$ msg= b'something'`
-`$ hashlib.sha256(msg)`
-`$ hashlib.sha256(msg).hexdigest()`
+Check `hashing.py` for a complete script on comparing hashes.
 
-Crate a message in bytes _b'_ then pass the method `.sha256(msg)` to the hashlib and finally pass another method to `.hexgdigest()` to get a hexadecimal number. For each one of a new message you will get a different fingerprint. 
-
-`$ testnet getnewaddress ‘’ [legacy, segwit … ]`
-Returns a new Bitcoin address for receiving payments.
-
-`$ testnet getnewaddress ‘’ [legacy, segwit … ]`
-Returns a new Bitcoin address for receiving payments.
+`xxd filename`
+creates a hex dump of a given file or standard input. It can also convert a hex dump back to its original binary form.
+`xxd -b filename`
+Does the same but encoded with zeros and ones.
 <br>
 
-##### Checking digital signatures (gpg)
+##### Check a hash of a file using the command line
 
-`gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 01EA5486DE18A882D4C2684590C8019E36C2E964`
-Import a public key
-
-`gpg --verify SHA256SUMS.asc`
-Import a public key
+`sha256sum filename`
+will also give us the hash of the file
 <br>
-
-##### Digital Signatures with python ECSDA
-
-_Using the python IDLE_.
-For this part we are going to be using a library called **[website](https://ofek.dev/bit/index.html)**. Bit is Python’s fastest Bitcoin library and was designed from the beginning to feel intuitive, be effortless to use, and have readable source code. It is heavily inspired by Requests and Keras. 
->`$ pip install bit`
-`$ key= bit.PrivateKey.Testnet()`
-
-`$ bit.[Tab]`
-`$ key.[Tab]`
-to explore available commands within the library.
-
-`$ key` creates a new key.
-
-`$ key.sign('message'.encode())` to encode a message in bytes and sign it. Encoded messages will show a _b'_ in front
-
-`$ key.verify(signature,data)` in bytes, to verify signed tx.
-
-`$ sig2 = sig[:-1] + b'b'` to replace the last char of the key with encoded b... Changing the signature will brake if you try to verify a message you already signed with a different key.
-<br>
-
-> `$ key` 
-`$ key.to_hex()` 
-`$ f= open('file_name.txt', 'w')`
-`$ f.write(key.to_hex())`
-`$ f.close()`
-`$ f= open('secrets.txt', 'r')`
-`$ content= f.read()`
-`$ key3= key.PrivateKeyTestnet.from_hex(contents)`
-`$ key3`
-`$ key.address`
-`$ key.get_transactions()`
-
- Creates a new private key, converts it to hex (more readability for humans), creates a new txt file, write the pk inside, close the file to save changes and open the newly created file in read mode, save it to a new variable and pass it to a another variable using the class PrivateKey, finally out of that pk create an address and recevie coins to that address. Get the add on the explorer and if its already mined it will show the hashes.
-
